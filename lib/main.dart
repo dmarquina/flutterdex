@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutterdex/homepage.dart';
+import 'package:flutter/services.dart';
 
-void main() => runApp(new FlutterDex());
+void main() async {
+  await SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_) {
+    runApp(new FlutterDex());
+  });
+}
 
 class FlutterDex extends StatelessWidget {
   @override
@@ -12,8 +18,4 @@ class FlutterDex extends StatelessWidget {
       debugShowCheckedModeBanner: false,
     );
   }
-
 }
-
-
-

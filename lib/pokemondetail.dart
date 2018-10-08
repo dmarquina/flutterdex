@@ -6,7 +6,7 @@ class PokeDetail extends StatelessWidget {
 
   PokeDetail({this.pokemon});
 
-  bodyWidget(BuildContext context) => Stack(
+  bodyWidget(BuildContext context) => Stack(overflow: Overflow.visible,
         children: <Widget>[
           Positioned(
             height: MediaQuery.of(context).size.height / 1.5,

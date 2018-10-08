@@ -46,24 +46,33 @@ class PokeDetail extends StatelessWidget {
                   ),
                   Text("Debilidades",
                       style: TextStyle(fontWeight: FontWeight.bold)),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: pokemon.weaknesses == null
-                          ? <Widget>[
-                              Text(
-                                "No tiene debilidades",
-                                style: TextStyle(color: Colors.grey),
-                              )
-                            ]
-                          : pokemon.weaknesses
-                              .map((weakness) => FilterChip(
-                                  backgroundColor: Colors.red,
-                                  label: Text(
-                                    weakness,
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                  onSelected: (b) {}))
-                              .toList()),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: pokemon.weaknesses == null
+                            ? <Widget>[
+                                Text(
+                                  "No tiene debilidades",
+                                  style: TextStyle(color: Colors.grey),
+                                )
+                              ]
+                            : pokemon.weaknesses
+                                .map((weakness) => FilterChip(
+                                    shape: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(100.0)),
+                                        borderSide: BorderSide(
+                                            width: 3.0, color: Colors.white)),
+                                    backgroundColor: Colors.red,
+                                    label: Text(
+                                      weakness,
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    onSelected: (b) {}))
+                                .toList()),
+                  ),
                   Text("Evolución",
                       style: TextStyle(fontWeight: FontWeight.bold)),
                   Row(

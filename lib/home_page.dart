@@ -1,8 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutterdex/pokemon.dart';
-import 'package:flutterdex/pokemondetail.dart';
+import 'package:flutterdex/pokemon_detail.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class HomePage extends StatefulWidget {
   @override
@@ -47,11 +48,8 @@ class HomePageState extends State<HomePage> {
                         padding: const EdgeInsets.all(2.0),
                         child: InkWell(
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        PokeDetail(pokemon: poke)));
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) => PokeDetail(pokemon: poke)));
                           },
                           child: Hero(
                             tag: poke.img,
@@ -64,13 +62,10 @@ class HomePageState extends State<HomePage> {
                                     height: 100.0,
                                     width: 100.0,
                                     decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            image: NetworkImage(poke.img))),
+                                        image: DecorationImage(image: NetworkImage(poke.img))),
                                   ),
                                   Text(poke.name,
-                                      style: TextStyle(
-                                          fontSize: 20.0,
-                                          fontWeight: FontWeight.bold))
+                                      style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold))
                                 ],
                               ),
                             ),
@@ -80,9 +75,7 @@ class HomePageState extends State<HomePage> {
                   .toList(),
             ),
       floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-          child: Icon(Icons.refresh),
-          backgroundColor: Colors.cyan),
+          onPressed: () {}, child: Icon(Icons.refresh), backgroundColor: Colors.cyan),
     );
   }
 }

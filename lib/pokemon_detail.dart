@@ -6,7 +6,8 @@ class PokeDetail extends StatelessWidget {
 
   PokeDetail({this.pokemon});
 
-  bodyWidget(BuildContext context) => Stack(overflow: Overflow.visible,
+  bodyWidget(BuildContext context) => Stack(
+        overflow: Overflow.visible,
         children: <Widget>[
           Positioned(
             height: MediaQuery.of(context).size.height / 1.5,
@@ -14,17 +15,14 @@ class PokeDetail extends StatelessWidget {
             left: 10.0,
             top: MediaQuery.of(context).size.height * 0.10,
             child: Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   SizedBox(
                     height: 100.0,
                   ),
-                  Text(pokemon.name,
-                      style: TextStyle(
-                          fontSize: 25.0, fontWeight: FontWeight.bold)),
+                  Text(pokemon.name, style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold)),
                   Text("Altura: ${pokemon.height}"),
                   Text("Peso: ${pokemon.weight}"),
                   Text("Tipos", style: TextStyle(fontWeight: FontWeight.bold)),
@@ -44,8 +42,7 @@ class PokeDetail extends StatelessWidget {
                                 onSelected: (b) {}))
                             .toList(),
                   ),
-                  Text("Debilidades",
-                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  Text("Debilidades", style: TextStyle(fontWeight: FontWeight.bold)),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
@@ -61,10 +58,8 @@ class PokeDetail extends StatelessWidget {
                             : pokemon.weaknesses
                                 .map((weakness) => FilterChip(
                                     shape: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(100.0)),
-                                        borderSide: BorderSide(
-                                            width: 3.0, color: Colors.white)),
+                                        borderRadius: BorderRadius.all(Radius.circular(100.0)),
+                                        borderSide: BorderSide(width: 3.0, color: Colors.white)),
                                     backgroundColor: Colors.red,
                                     label: Text(
                                       weakness,
@@ -73,8 +68,7 @@ class PokeDetail extends StatelessWidget {
                                     onSelected: (b) {}))
                                 .toList()),
                   ),
-                  Text("Evolución",
-                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  Text("Evolución", style: TextStyle(fontWeight: FontWeight.bold)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: pokemon.nextEvolution == null
@@ -106,8 +100,7 @@ class PokeDetail extends StatelessWidget {
                 height: 200.0,
                 width: 200.0,
                 decoration: BoxDecoration(
-                    image: DecorationImage(
-                        fit: BoxFit.cover, image: NetworkImage(pokemon.img))),
+                    image: DecorationImage(fit: BoxFit.cover, image: NetworkImage(pokemon.img))),
               ),
             ),
           )

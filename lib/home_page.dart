@@ -48,8 +48,16 @@ class HomePageState extends State<HomePage> {
                         padding: const EdgeInsets.all(2.0),
                         child: InkWell(
                           onTap: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) => PokeDetail(pokemon: poke)));
+                            List<Pokemon> evolutions = poke.nextEvolution != null
+                                ? poke.nextEvolution
+                                    .map((e) => pokeHub.pokemon.elementAt(int.parse(e.num) - 1))
+                                    .toList()
+                                : [];
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        PokeDetail(pokemon: poke, pokeEvolutions: evolutions)));
                           },
                           child: Hero(
                             tag: poke.img,

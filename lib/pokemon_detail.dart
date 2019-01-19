@@ -3,8 +3,59 @@ import 'package:flutterdex/pokemon.dart';
 
 class PokeDetail extends StatelessWidget {
   final Pokemon pokemon;
+  final List<Pokemon> pokeEvolutions;
 
-  PokeDetail({this.pokemon});
+  PokeDetail({this.pokemon, this.pokeEvolutions = const []});
+
+  void _evolve(BuildContext context, Pokemon evolution, List<Pokemon> nextEvolutions) {
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => PokeDetail(pokemon: evolution, pokeEvolutions: nextEvolutions)));
+  }
+
+  void _evolvePokemon(BuildContext context, Pokemon evolution) {
+    if (pokemon.id == 133) {
+      _evolve(context, evolution, []);
+    }
+    else if ((evolution.id - pokemon.id) == 1) {
+      List<Pokemon> nextEvolutions = List.from(pokeEvolutions);
+      nextEvolutions.remove(evolution);
+      _evolve(context, evolution, nextEvolutions);
+    } else {
+      Pokemon previousEvolution = pokeEvolutions.firstWhere((pe) => pe.id == (evolution.id - 1));
+      _showWarningDialog(context, pokemon.name, previousEvolution.name);
+    }
+  }
+
+  _showWarningDialog(BuildContext context, String pokemonName, String previousEvolution) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Es muy pronto'),
+            content: RichText(
+                text: TextSpan(
+                    style: new TextStyle(
+                      fontSize: 16.0,
+                      color: Colors.black,
+                    ),
+                    children: [
+                  TextSpan(text: '$pokemonName', style: new TextStyle(fontWeight: FontWeight.bold)),
+                  TextSpan(text: ' debe evolucionar primero a '),
+                  TextSpan(text: '$previousEvolution', style: new TextStyle(fontWeight: FontWeight.bold)),
+                ])),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              )
+            ],
+          );
+        });
+  }
 
   bodyWidget(BuildContext context) => Stack(
         overflow: Overflow.visible,
@@ -71,21 +122,23 @@ class PokeDetail extends StatelessWidget {
                   Text("Evolución", style: TextStyle(fontWeight: FontWeight.bold)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: pokemon.nextEvolution == null
+                    children: pokeEvolutions.isEmpty
                         ? <Widget>[
                             Text(
-                              "No cuenta con evolución",
+                              "${pokemon.name} no posee evolución",
                               style: TextStyle(color: Colors.grey),
                             )
                           ]
-                        : pokemon.nextEvolution
+                        : pokeEvolutions
                             .map((evolution) => FilterChip(
                                 backgroundColor: Colors.green,
                                 label: Text(
                                   evolution.name,
                                   style: TextStyle(color: Colors.white),
                                 ),
-                                onSelected: (b) {}))
+                                onSelected: (b) {
+                                  _evolvePokemon(context, evolution);
+                                }))
                             .toList(),
                   ),
                 ],
